@@ -1,0 +1,128 @@
+Synchronization : It is technique through which we can control the multiple Threads or among the multiple Threads 
+only one Thread will enter in synchronized area.
+
+There are two types of synchronization:
+
+1)Method level Synchronization.
+2)Block level Synchronization.
+
+
+
+Example 1 : Without Sync
+
+package synchronization;
+
+public class Customer {
+
+	public static void main(String[] args) {
+
+		Bus bus = new Bus(1);
+
+		Thread t1 = new Thread(bus);
+		Thread t2 = new Thread(bus);
+		Thread t3 = new Thread(bus);
+
+		t1.setName("Santosh");
+		t2.setName("Ganesh");
+		t3.setName("Kumar");
+
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+}
+
+
+
+package synchronization;
+
+public class Bus implements Runnable {
+
+	int avlSeats = 1;
+	int psg;
+
+	public Bus(int psg) {
+		this.psg = psg;
+	}
+
+	@Override
+	public void run() {
+
+		String name = Thread.currentThread().getName();
+
+		if (avlSeats >= psg) {
+			System.out.println(name + " Booking Confirmed");
+			avlSeats = avlSeats - psg;
+		} else {
+			System.out.println("Seat Not Available");
+		}
+
+	}
+
+}
+
+
+
+Example 2: With sync
+
+package synchronization;
+
+public class Customer {
+
+	public static void main(String[] args) {
+
+		Bus bus = new Bus(1);
+
+		Thread t1 = new Thread(bus);
+		Thread t2 = new Thread(bus);
+		Thread t3 = new Thread(bus);
+
+		t1.setName("Santosh");
+		t2.setName("Ganesh");
+		t3.setName("Kumar");
+
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+}
+
+
+
+package synchronization;
+
+public class Bus implements Runnable {
+
+	int avlSeats = 1;
+	int psg;
+
+	public Bus(int psg) {
+		this.psg = psg;
+	}
+
+	@Override
+	public synchronized void run() {
+
+		String name = Thread.currentThread().getName();
+
+		if (avlSeats >= psg) {
+			System.out.println(name + " Booking Confirmed");
+			avlSeats = avlSeats - psg;
+		} else {
+			System.out.println("Seat Not Available");
+		}
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
